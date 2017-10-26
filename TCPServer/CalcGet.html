@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title>Simple Calc</title>
+	<script>
+		function calc(a, b, op) {
+			if(op == '+')
+			op = 'p';
+			
+			var req = "num1="+a+"&num2="+b+"&opr="+op;
+	        var rr = new XMLHttpRequest();
+	        rr.open('GET', 'http://localhost:8080?'+req, false);
+			rr.send(null);
+			return rr.responseText;
+		}
+
+     	function calculate() {
+			try
+			{
+				var a = document.getElementById("atxt").value;
+				var b = document.getElementById("btxt").value;
+				var op = document.getElementById("op").value;
+
+				document.getElementById("txtres").value = calc(a, b, op);
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				Exception();
+			}
+		}
+	</script>
+</head>
+<body>
+	<b>a:</b><input type="text" id="atxt"/><p>
+	<b>b:</b><input type="text" id="btxt"/><p> 
+	<b>op:</b><input type="text" id="op"/> <p>
+	<b>res:</b><input type="text" id="txtres"/> <p>
+	<input type="button" id="btncalc" value="Calculate" onClick="calculate()"/> <p>
+</body>
+</html>

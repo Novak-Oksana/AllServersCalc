@@ -1,0 +1,45 @@
+﻿<html>
+<head>
+    <title>Calculator</title>
+    <script>
+		function calc(a, b, op) {
+            if (op == '+')
+                op = '%2B';
+
+			var req = "num1=" + a + "&num2=" + b + "&op=" + op;
+	        var rr = new XMLHttpRequest();
+	        rr.open('POST', 'http://localhost:51953/Calculator.asmx/Calc', false);
+	        rr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            rr.send(req);
+            return JSON.parse(rr.responseText).Result;
+
+		}
+
+     	function calculate() {
+			try
+			{
+				var a = document.getElementById("atxt").value;
+				var b = document.getElementById("btxt").value;
+				var op = document.getElementById("op").value;
+
+				document.getElementById("txtres").value = calc(a, b, op);
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				Exception();
+			}
+		}
+    </script>
+</head>
+<body>
+    <b>a:</b><input type="text" id="atxt" /><p>
+        <b>b:</b><input type="text" id="btxt" />
+    <p>
+        <b>op:</b><input type="text" id="op" />
+    <p>
+        <b>res:</b><input type="text" id="txtres" />
+    <p>
+        <input type="button" id="btncalc" value="Calculate" onClick="calculate()" />
+    <p>
+</body>
+</html>
